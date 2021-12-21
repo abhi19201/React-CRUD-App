@@ -7,25 +7,13 @@ import ListItems from "./components/ListItems.js/ListItems";
 function App() {
     const [list, setList] = useState([]);
     const [editIndex, setEditIndex] = useState(null);
-    const [editStatus, setEditStatus] = useState(false);
     const value = { list, setList, editIndex, setEditIndex };
-
-    const submitForm = (submittedList, submittedEditStatus) => {
-        if (submittedList) submitForm([...submittedList]);
-
-        if (submittedEditStatus) setEditStatus(submittedEditStatus);
-    };
-
-    const getEditIndex = (index) => {
-        console.log(index);
-        setEditIndex(index);
-    };
 
     return (
         <div className='App'>
             <ListContext.Provider value={value}>
-                <ListItems sendEditIndex={getEditIndex} />
-                <Form submitForm={submitForm} />
+                <ListItems />
+                <Form />
             </ListContext.Provider>
         </div>
     );
