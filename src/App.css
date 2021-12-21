@@ -1,0 +1,10 @@
+.App {
+  text-align: center;
+  height: -webkit-fill-available;
+  display: flex;
+}
+
+.App>div{
+  padding: 2rem;
+  width: 50%;
+}

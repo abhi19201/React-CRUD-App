@@ -1,0 +1,14 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.form > div {
+    width: 80%;
+}
+
+.form > button {
+    width: 60%;
+}

@@ -1,0 +1,34 @@
+.listItems {
+    overflow-y: auto;
+}
+
+.listItems > div {
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem;
+    background: antiquewhite;
+    margin-top: 1rem;
+    border-radius: 0.4rem;
+    align-items: center;
+}
+
+.buttons {
+    display: flex;
+    height: fit-content;
+}
+
+.buttons > button {
+    margin: 0.5rem;
+}
+
+
+.item>div{
+    padding: 0.5rem;
+    text-align: start;
+    font-size: 1.2rem;
+}
+
+.item>div>span{
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
