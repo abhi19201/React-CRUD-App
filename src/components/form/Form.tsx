@@ -1,12 +1,14 @@
 import React, { useState, useContext, useEffect } from "react";
-import ListContext from "../../store/listContext";
+import ListContext, { ListItemType } from "../../store/listContext";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import "./form.css";
 
-export default function Form(props) {
-    const [user, setUser] = useState({
-        id: null,
+
+export default function Form() {
+
+    const [user, setUser] = useState<ListItemType>({
+        id: -1,
         name: "",
         gender: "",
         age: "",
@@ -22,11 +24,14 @@ export default function Form(props) {
         }
     }, [ctx.editIndex, ctx.list]);
 
-    const changeHandler = (e, field) => {
+    const changeHandler = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+        field: string
+    ) => {
         setUser((prev) => {
             return { ...prev, [field]: e.target.value };
         });
-    }
+    };
 
     const addHandler = () => {
         if (ctx.editIndex != null) {
@@ -37,7 +42,7 @@ export default function Form(props) {
         }
 
         if (ctx.editIndex === null) ctx.setList([...ctx.list, user]);
-        setUser({ id: null, name: "", gender: "", age: "" });
+        setUser({ id: -1, name: "", gender: "", age: "" });
     };
 
     return (

@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import ListContext from "./store/listContext";
+import { useState } from "react";
+import ListContext, { ListItemType } from "./store/listContext";
 import "./App.css";
 import Form from "./components/form/Form";
-import ListItems from "./components/ListItems.js/ListItems";
+import ListItems from "./components/ListItems/ListItems";
+
 
 function App() {
-    const [list, setList] = useState([]);
-    const [editIndex, setEditIndex] = useState(null);
+    const [list, setList] = useState<ListItemType[]>([]);
+    const [editIndex, setEditIndex] = useState<number | null>(null);
     const value = { list, setList, editIndex, setEditIndex };
 
     return (

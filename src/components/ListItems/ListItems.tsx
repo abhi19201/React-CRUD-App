@@ -1,17 +1,17 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import ListContext from "../../store/listContext";
 import "./listItem.css";
 import Button from "@mui/material/Button";
 
-export default function ListItems(props) {
+export default function ListItems() {
     const ctx = useContext(ListContext);
 
-    const editHandler = (index) => {
+    const editHandler = (index: number) => {
         ctx.setEditIndex(index);
     };
 
-    const deleteHandler = (index) => {
-        let newList = [...(ctx.list)];
+    const deleteHandler = (index: number) => {
+        let newList = [...ctx.list];
         newList.splice(index, 1);
         ctx.setList(newList);
     };
