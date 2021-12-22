@@ -22,6 +22,12 @@ export default function Form(props) {
         }
     }, [ctx.editIndex, ctx.list]);
 
+    const changeHandler = (e, field) => {
+        setUser((prev) => {
+            return { ...prev, [field]: e.target.value };
+        });
+    }
+
     const addHandler = () => {
         if (ctx.editIndex != null) {
             let newList = ctx.list;
@@ -35,39 +41,27 @@ export default function Form(props) {
     };
 
     return (
-        <div className="form">
+        <div className='form'>
             <TextField
                 id='outlined-basic'
                 label='Name'
                 variant='outlined'
                 value={user.name}
-                onChange={(e) => {
-                    setUser((prev) => {
-                        return { ...prev, name: e.target.value };
-                    });
-                }}
+                onChange={(e) => changeHandler(e, "name")}
             />
             <TextField
                 id='outlined-basic'
                 label='Gender'
                 variant='outlined'
                 value={user.gender}
-                onChange={(e) => {
-                    setUser((prev) => {
-                        return { ...prev, gender: e.target.value };
-                    });
-                }}
+                onChange={(e) => changeHandler(e, "gender")}
             />
             <TextField
                 id='outlined-basic'
                 label='Age'
                 variant='outlined'
                 value={user.age}
-                onChange={(e) => {
-                    setUser((prev) => {
-                        return { ...prev, age: e.target.value };
-                    });
-                }}
+                onChange={(e) => changeHandler(e, "age")}
             />
 
             <Button
