@@ -1,6 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
 import ListContext, { ListItemType } from "../../store/listContext";
 import TextField from "@mui/material/TextField";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 import "./form.css";
 
@@ -25,11 +29,11 @@ export default function Form() {
     }, [ctx.editIndex, ctx.list]);
 
     const changeHandler = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+        value: string,
         field: string
     ) => {
         setUser((prev) => {
-            return { ...prev, [field]: e.target.value };
+            return { ...prev, [field]: value };
         });
     };
 
@@ -48,25 +52,31 @@ export default function Form() {
     return (
         <div className='form'>
             <TextField
-                id='outlined-basic'
                 label='Name'
                 variant='outlined'
                 value={user.name}
-                onChange={(e) => changeHandler(e, "name")}
+                onChange={(e) => changeHandler(e.target.value, "name")}
             />
-            <TextField
-                id='outlined-basic'
-                label='Gender'
-                variant='outlined'
-                value={user.gender}
-                onChange={(e) => changeHandler(e, "gender")}
-            />
+            
+            <FormControl fullWidth>
+                <InputLabel id='demo-simple-select-label'>Age</InputLabel>
+                <Select
+                    value={user.gender}
+                    label='Age'
+                    onChange={(e) => changeHandler(e.target.value, "gender")}>
+                    <MenuItem value='Male'>Male</MenuItem>
+                    <MenuItem value='Female'>Female</MenuItem>
+                </Select>
+            </FormControl>
+
+
             <TextField
                 id='outlined-basic'
                 label='Age'
                 variant='outlined'
+                type="number"
                 value={user.age}
-                onChange={(e) => changeHandler(e, "age")}
+                onChange={(e) => changeHandler(e.target.value, "age")}
             />
 
             <Button
