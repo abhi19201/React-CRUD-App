@@ -1,5 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
-import ListContext, { ListItemType } from "../../store/listContext";
+import React, { useState, useEffect } from "react";
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -7,26 +6,30 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 import "./form.css";
+import { useSelector, useDispatch } from "react-redux";
+import { Dispatch } from 'redux';
+import * as types from "../../store/types";
 
 
 export default function Form() {
+    const dispatch: Dispatch<any> = useDispatch();
+    const { list, editIndex } = useSelector((state: types.ListState) => state);
 
-    const [user, setUser] = useState<ListItemType>({
+    const [user, setUser] = useState<types.IListItem>({
         id: -1,
         name: "",
         gender: "",
         age: "",
     });
-    const ctx = useContext(ListContext);
 
     useEffect(() => {
-        if (ctx.editIndex != null) setUser(ctx.list[ctx.editIndex]);
+        if (editIndex != null) setUser(list[editIndex]);
         else {
             setUser((prev) => {
                 return { ...prev, id: Date.now() };
             });
         }
-    }, [ctx.editIndex, ctx.list]);
+    }, [editIndex, list]);
 
     const changeHandler = (
         value: string,
@@ -38,14 +41,22 @@ export default function Form() {
     };
 
     const addHandler = () => {
-        if (ctx.editIndex != null) {
-            let newList = ctx.list;
-            newList[ctx.editIndex] = user;
-            ctx.setList(newList);
-            ctx.setEditIndex(null);
+        if (editIndex != null) {
+            let newList = list;
+            newList[editIndex] = user;
+            
+            dispatch({
+                type: "SET_LIST_REQUEST",
+                list: newList,
+                editIndex: null,
+            });
         }
 
-        if (ctx.editIndex === null) ctx.setList([...ctx.list, user]);
+        if (editIndex === null) dispatch({
+            type: "SET_LIST_REQUEST",
+            list: [...list, user],
+            editIndex: null,
+        });
         setUser({ id: -1, name: "", gender: "", age: "" });
     };
 
@@ -84,7 +95,7 @@ export default function Form() {
                 onClick={() => {
                     addHandler();
                 }}>
-                {ctx.editIndex != null ? "Edit" : "Add"}
+                {editIndex != null ? "Edit" : "Add"}
             </Button>
         </div>
     );

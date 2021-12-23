@@ -1,28 +1,38 @@
-import { useContext } from "react";
-import ListContext from "../../store/listContext";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import "./listItem.css";
 import Button from "@mui/material/Button";
+import { useSelector, useDispatch } from "react-redux";
+import { Dispatch } from "redux";
+import * as types from "../../store/types";
 
 export default function ListItems() {
-    const ctx = useContext(ListContext);
+    const dispatch: Dispatch<any> = useDispatch();
+    const { list } = useSelector((state: types.ListState) => state);
 
     const editHandler = (index: number) => {
-        ctx.setEditIndex(index);
+        dispatch({
+            type: "SET_LIST_REQUEST",
+            list: list,
+            editIndex: index,
+        });
     };
 
     const deleteHandler = (index: number) => {
-        let newList = [...ctx.list];
+        let newList = [...list];
         newList.splice(index, 1);
-        ctx.setList(newList);
+        dispatch({
+            type: "SET_LIST_REQUEST",
+            list: newList,
+            editIndex: null,
+        });
     };
 
     return (
         <div className='listItems'>
-            {ctx.list.map((item, index) => {
+            {list.map((item, index) => {
                 return (
                     <Card key={item.id}>
                         <CardContent className='item'>
