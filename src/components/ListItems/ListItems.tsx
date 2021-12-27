@@ -4,17 +4,15 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import "./listItem.css";
 import Button from "@mui/material/Button";
-import { useSelector, useDispatch } from "react-redux";
-import { Dispatch } from "redux";
-import * as types from "../../store/types";
+import { useStoreActions, useStoreState } from "../../store/easy-peasy-store";
+
 
 export default function ListItems() {
-    const dispatch: Dispatch<any> = useDispatch();
-    const { list } = useSelector((state: types.ListState) => state);
+    const { list } = useStoreState((state) => state.listReducer);
+    const { setList } = useStoreActions((actions) => actions.listReducer);
 
     const editHandler = (index: number) => {
-        dispatch({
-            type: "SET_LIST_REQUEST",
+        setList({
             list: list,
             editIndex: index,
         });
@@ -23,8 +21,7 @@ export default function ListItems() {
     const deleteHandler = (index: number) => {
         let newList = [...list];
         newList.splice(index, 1);
-        dispatch({
-            type: "SET_LIST_REQUEST",
+        setList({
             list: newList,
             editIndex: null,
         });

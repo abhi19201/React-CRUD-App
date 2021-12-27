@@ -2,7 +2,7 @@ import { createStore , applyMiddleware, Store } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { ListReducer } from "../reducers/ListReducer";
-import * as types from '../store/types';
+import * as types from './types';
 
 
 const store: Store<types.ListState, types.ListAction> & {

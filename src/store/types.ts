@@ -1,9 +1,10 @@
+import { Action } from "easy-peasy";
 interface IListItem {
     id: number;
     name: string;
     gender: string;
     age: string;
-};
+}
 
 type ListState = {
     list: IListItem[];
@@ -16,6 +17,23 @@ type ListAction = {
     editIndex: number | null;
 };
 
+interface ListModel {
+    list: IListItem[];
+    editIndex: number | null;
+    setList: Action<ListState, ListState>;
+}
+
+interface StoreModel {
+    listReducer: ListModel;
+}
+
 type DispatchType = (args: ListAction) => ListAction;
 
-export type { IListItem, ListState, ListAction, DispatchType };
+export type {
+    IListItem,
+    ListState,
+    ListAction,
+    DispatchType,
+    ListModel,
+    StoreModel,
+};

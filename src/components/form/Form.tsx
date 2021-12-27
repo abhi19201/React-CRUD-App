@@ -6,14 +6,13 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Button from "@mui/material/Button";
 import "./form.css";
-import { useSelector, useDispatch } from "react-redux";
-import { Dispatch } from 'redux';
+import { useStoreActions, useStoreState } from "../../store/easy-peasy-store";
 import * as types from "../../store/types";
 
 
 export default function Form() {
-    const dispatch: Dispatch<any> = useDispatch();
-    const { list, editIndex } = useSelector((state: types.ListState) => state);
+    const { list, editIndex } = useStoreState((state) => state.listReducer);
+    const { setList } = useStoreActions((actions) => actions.listReducer);
 
     const [user, setUser] = useState<types.IListItem>({
         id: -1,
@@ -45,15 +44,13 @@ export default function Form() {
             let newList = list;
             newList[editIndex] = user;
             
-            dispatch({
-                type: "SET_LIST_REQUEST",
+            setList({
                 list: newList,
                 editIndex: null,
             });
         }
 
-        if (editIndex === null) dispatch({
-            type: "SET_LIST_REQUEST",
+        if (editIndex === null) setList({
             list: [...list, user],
             editIndex: null,
         });
