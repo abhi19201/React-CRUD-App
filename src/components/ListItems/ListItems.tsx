@@ -1,29 +1,41 @@
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
+import { useState } from "react";
+import {
+    Card,
+    CardActions,
+    CardContent,
+    Typography,
+    Button,
+} from "@mui/material";
 import "./listItem.css";
-import Button from "@mui/material/Button";
 import { useStoreActions, useStoreState } from "../../store/easy-peasy-store";
-
+import { Dialog, DialogActions, DialogTitle } from "@mui/material";
 
 export default function ListItems() {
     const { list } = useStoreState((state) => state.listReducer);
     const { setList } = useStoreActions((actions) => actions.listReducer);
+    const [openAlert, setOpenAlert] = useState(false);
 
-    const editHandler = (index: number) => {
-        setList({
-            list: list,
-            editIndex: index,
-        });
+    const handleAlertOpen = () => {
+        setOpenAlert(true);
     };
 
-    const deleteHandler = (index: number) => {
+    const handleAlertClose = (index: number, deleteAgree: boolean) => {
+        setOpenAlert(false);
+
+        if (!deleteAgree) return;
+
         let newList = [...list];
         newList.splice(index, 1);
         setList({
             list: newList,
             editIndex: null,
+        });
+    };
+
+    const editHandler = (index: number) => {
+        setList({
+            list: list,
+            editIndex: index,
         });
     };
 
@@ -54,11 +66,36 @@ export default function ListItems() {
                                 </Button>
                                 <Button
                                     variant='contained'
-                                    onClick={() => {
-                                        deleteHandler(index);
-                                    }}>
+                                    onClick={handleAlertOpen}>
                                     Delete
                                 </Button>
+                                <Dialog
+                                    open={openAlert}
+                                    onClose={() =>
+                                        handleAlertClose(index, false)
+                                    }
+                                    aria-labelledby='alert-dialog-title'
+                                    aria-describedby='alert-dialog-description'>
+                                    <DialogTitle id='alert-dialog-title'>
+                                        {"Do you want to delete this Card?"}
+                                    </DialogTitle>
+
+                                    <DialogActions>
+                                        <Button
+                                            onClick={() => {
+                                                handleAlertClose(index, false);
+                                            }}>
+                                            Disagree
+                                        </Button>
+                                        <Button
+                                            onClick={() => {
+                                                handleAlertClose(index, true);
+                                            }}
+                                            autoFocus>
+                                            Agree
+                                        </Button>
+                                    </DialogActions>
+                                </Dialog>
                             </CardActions>
                         </CardContent>
                     </Card>
