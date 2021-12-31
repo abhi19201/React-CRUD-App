@@ -8,3 +8,11 @@
   padding: 2rem;
   width: 50%;
 }
+
+.App>.listItems{
+  width: 40%;
+}
+
+.App>.form{
+  width: 60%;
+}

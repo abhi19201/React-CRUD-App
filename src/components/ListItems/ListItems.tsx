@@ -1,14 +1,14 @@
-import { useState } from "react";
+import React,{ useState } from "react";
 import {
     Card,
     CardActions,
     CardContent,
     Typography,
     Button,
-} from "@mui/material";
+} from "@material-ui/core";
 import "./listItem.css";
 import { useStoreActions, useStoreState } from "../../store/easy-peasy-store";
-import { Dialog, DialogActions, DialogTitle } from "@mui/material";
+import { Dialog, DialogActions, DialogTitle } from "@material-ui/core";
 
 export default function ListItems() {
     const { list } = useStoreState((state) => state.listReducer);

@@ -1,0 +1,24 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.form > form {
+    width: 100%;
+    text-align: -webkit-center;
+}
+
+.formItems > div {
+    width: 80%;
+    text-align: start;
+}
+
+.form > button {
+    width: 60%;
+}
+
+.submitButton{
+    width: 60%;
+}
